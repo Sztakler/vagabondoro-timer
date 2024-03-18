@@ -3,8 +3,6 @@ import { ref } from 'vue';
 import Task from './Task.vue'
 import { Todo } from './types'
 
-
-
 let todos = ref([
   new Todo("Water plants", 1),
   new Todo("Excercise a bit", 2),
@@ -14,9 +12,7 @@ let todos = ref([
 
 todos.value[2].completed = true;
 
-let visibleTodos = ref(todos);
-
-let activeTask = ref(todos.value[2].id)
+let activeTask = ref(todos.value[0].id)
 let completedHidden = ref(false);
 
 function addTask() {
@@ -40,8 +36,8 @@ function hideCompleted() {
     </button>
     <div class="task-list">
       <div v-for="( item, index ) in todos">
-        <Task v-if="!completedHidden || !item.completed" :task="item" :index="index" :key="item.id"
-          :active="activeTask == item.id">
+        <Task v-if="!completedHidden || !item.completed" @click="activeTask = item.id" :task="item" :index="index"
+          :key="item.id" :active="activeTask == item.id">
         </Task>
       </div>
     </div>

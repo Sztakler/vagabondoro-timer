@@ -29,6 +29,11 @@ let props = defineProps({
   align-items: center;
   justify-content: space-between;
   background-color: #DCD7BACC;
+  transition: scale 100ms ease;
+}
+
+.container:hover {
+  scale: 105%;
 }
 
 .active-indicator {

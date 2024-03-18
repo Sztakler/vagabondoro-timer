@@ -6,7 +6,22 @@ import Button from './Button.vue';
 import StartButton from './StartButton.vue';
 import TimeEstimation from './TimeEstimation.vue';
 
-let i = ref(0);
+import { TimerModes, TimerSettings } from './types.js'
+
+let timerSettings = ref(new TimerSettings(0.1, 0.05, 0.08));
+let currentMode = ref(0);
+let timerSchedule = ref([
+  TimerModes.Pomodoro,
+  TimerModes.Break,
+  TimerModes.Pomodoro,
+  TimerModes.Break,
+  TimerModes.Pomodoro,
+  TimerModes.Break,
+  TimerModes.Pomodoro,
+  TimerModes.LongBreak,
+]);
+
+
 const time = new Date();
 time.setSeconds(time.getSeconds() + 6);
 const timer = useTimer(time);
@@ -14,7 +29,7 @@ timer.pause();
 
 function restartTimer() {
   const time = new Date();
-  time.setSeconds(time.getSeconds() + 10);
+  time.setSeconds(time.getSeconds() + timerSettings.value.getModeTime(timerSchedule.value[currentMode.value]));
   timer.restart(time);
 }
 
@@ -24,9 +39,14 @@ function timerToggledCallback() {
   } else timer.start();
 }
 
+function timerScheduleAdvance() {
+  currentMode.value = (currentMode.value + 1) % timerSchedule.value.length;
+}
+
 onMounted(() => {
   watchEffect(async () => {
     if (timer.isExpired.value) {
+      timerScheduleAdvance();
       restartTimer();
       console.warn('IsExpired')
     }
