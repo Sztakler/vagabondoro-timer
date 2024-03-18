@@ -21,7 +21,6 @@ let timerSchedule = ref([
   TimerModes.LongBreak,
 ]);
 
-
 const time = new Date();
 time.setSeconds(time.getSeconds() + 6);
 const timer = useTimer(time);
@@ -33,6 +32,10 @@ function restartTimer() {
   timer.restart(time);
 }
 
+function incrementPomos() {
+
+}
+
 function timerToggledCallback() {
   if (timer.isRunning.value) {
     timer.pause();
@@ -41,6 +44,13 @@ function timerToggledCallback() {
 
 function timerScheduleAdvance() {
   currentMode.value = (currentMode.value + 1) % timerSchedule.value.length;
+}
+
+function timerScheduleAdvanceToNext(timerMode: TimerModes) {
+  while (timerSchedule.value[currentMode.value] !== timerMode) {
+    timerScheduleAdvance();
+  }
+  restartTimer();
 }
 
 onMounted(() => {
@@ -56,9 +66,12 @@ onMounted(() => {
 
 <template>
   <nav>
-    <Button>Pomodoro</Button>
-    <Button>Break</Button>
-    <Button>Long break</Button>
+    <Button :active="timerSchedule[currentMode] === TimerModes.Pomodoro"
+      @click="timerScheduleAdvanceToNext(TimerModes.Pomodoro)">Pomodoro</Button>
+    <Button :active="timerSchedule[currentMode] === TimerModes.Break"
+      @click="timerScheduleAdvanceToNext(TimerModes.Break)">Break</Button>
+    <Button :active="timerSchedule[currentMode] === TimerModes.LongBreak"
+      @click="timerScheduleAdvanceToNext(TimerModes.LongBreak)">Long break</Button>
   </nav>
   <div class="timer">
     <h1>{{ timer.minutes.value + ":" + timer.seconds.value
