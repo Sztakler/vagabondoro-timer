@@ -6,7 +6,7 @@ import Button from './Button.vue';
 import StartButton from './StartButton.vue';
 import TimeEstimation from './TimeEstimation.vue';
 
-import { TimerModes, TimerSettings } from './types.js'
+import { TimerModes, TimerSettings, } from './types.js'
 
 let timerSettings = ref(new TimerSettings(0.1, 0.05, 0.08));
 let currentMode = ref(0);
@@ -32,10 +32,6 @@ function restartTimer() {
   timer.restart(time);
 }
 
-function incrementPomos() {
-
-}
-
 function timerToggledCallback() {
   if (timer.isRunning.value) {
     timer.pause();
@@ -58,7 +54,10 @@ onMounted(() => {
     if (timer.isExpired.value) {
       timerScheduleAdvance();
       restartTimer();
-      console.warn('IsExpired')
+
+      if (timerSchedule.value[currentMode.value] === TimerModes.Pomodoro) {
+        emit("timer-exceeded")
+      }
     }
   })
 })
