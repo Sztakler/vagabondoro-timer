@@ -4,6 +4,8 @@ import { Todo } from './types';
 import { useTodosStore } from './stores/todos';
 const todosStore = useTodosStore();
 
+let emit = defineEmits(['task-delete'])
+
 let props = defineProps({
   task: Todo,
   active: Boolean,
@@ -17,9 +19,13 @@ let props = defineProps({
     <div v-if="props.active" class="active-indicator"></div>
     <img src="./assets/check.svg" :class="{ 'not-completed': !task!.completed }"
       @click.stop="task!.completed = !task!.completed" />
-    <div class="content">{{ task?.content }}</div>
-    <div class="pomos">{{ task?.pomos }}/{{ task?.totalPomos }}</div>
-    <img src="./assets/ellipsis-vertical.svg" />
+    <input class="content" v-model.lazy="task.content" />
+    <div class="pomo-inputs">
+      <input class="pomos" v-model.lazy="task.pomos" />
+      /
+      <input class="pomos" v-model.lazy="task.totalPomos" />
+    </div>
+    <img src="./assets/trash.svg" @click.stop="$emit('task-delete', task.id)" />
   </div>
 </template>
 
@@ -51,5 +57,13 @@ let props = defineProps({
   width: 5px;
   height: 100%;
   background-color: #1F1F28;
+}
+
+input {
+  all: unset;
+}
+
+.pomos {
+  max-width: 2ch;
 }
 </style>

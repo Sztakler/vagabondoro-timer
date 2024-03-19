@@ -32,7 +32,10 @@ export const useTodosStore = defineStore("todos", {
     },
     getActiveTaskRemainingPomos() {
       return this.todos[this.activeTaskIndex].totalPomos - this.todos[this.activeTaskIndex].pomos;
-    }
+    },
+    deleteTask(id: String) {
+      this.todos = this.todos.filter(todo => todo.id !== id);
+  }
   },
 })
 

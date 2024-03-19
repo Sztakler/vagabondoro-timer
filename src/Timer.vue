@@ -25,7 +25,7 @@ let timerSchedule = ref([
 ]);
 
 const time = new Date();
-time.setSeconds(time.getSeconds() + 6);
+time.setSeconds(time.getSeconds() + timerSettings.value.getModeTime(timerSchedule.value[currentMode.value]));
 const timer = useTimer(time);
 timer.pause();
 

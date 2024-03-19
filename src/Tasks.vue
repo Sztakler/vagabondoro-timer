@@ -29,7 +29,7 @@ function hideCompleted() {
     <div class="task-list">
       <div v-for="( item, index ) in todosStore.todos">
         <Task v-if="!completedHidden || !item.completed" @click="todosStore.changeActiveTask(item.id)" :task="item"
-          :index="index" :key="item.id" :active="item.active">
+          :index="index" :key="item.id" :active="item.active" @taskDelete="(id) => todosStore.deleteTask(id)">
         </Task>
       </div>
     </div>
