@@ -3,22 +3,14 @@ import { ref } from 'vue';
 import Task from './Task.vue'
 import { Todo } from './types'
 
-let todos = ref([
-  new Todo("Water plants", 1),
-  new Todo("Excercise a bit", 2),
-  new Todo("Do homework", 4),
-  new Todo("Read a book", 3),
-])
+import { useTodosStore } from './stores/todos';
+const todosStore = useTodosStore();
 
-todos.value[2].completed = true;
-
-let activeTask = ref(todos.value[0].id)
 let completedHidden = ref(false);
 
 function addTask() {
   let newTodo = new Todo("...", 0)
-  todos.value.push(newTodo)
-  console.log(todos)
+  todosStore.addTodo(newTodo);
 }
 
 function hideCompleted() {
@@ -35,9 +27,9 @@ function hideCompleted() {
       Hide completed
     </button>
     <div class="task-list">
-      <div v-for="( item, index ) in todos">
-        <Task v-if="!completedHidden || !item.completed" @click="activeTask = item.id" :task="item" :index="index"
-          :key="item.id" :active="activeTask == item.id">
+      <div v-for="( item, index ) in todosStore.todos">
+        <Task v-if="!completedHidden || !item.completed" @click="todosStore.changeActiveTask(item.id)" :task="item"
+          :index="index" :key="item.id" :active="item.active">
         </Task>
       </div>
     </div>

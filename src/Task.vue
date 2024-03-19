@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { Todo } from './types';
 
+import { useTodosStore } from './stores/todos';
+const todosStore = useTodosStore();
+
 let props = defineProps({
   task: Todo,
   active: Boolean,
@@ -12,7 +15,8 @@ let props = defineProps({
 <template>
   <div class="container">
     <div v-if="props.active" class="active-indicator"></div>
-    <img src="./assets/check.svg" @click="console.log(props.active)" />
+    <img src="./assets/check.svg" :class="{ 'not-completed': !task!.completed }"
+      @click.stop="task!.completed = !task!.completed" />
     <div class="content">{{ task?.content }}</div>
     <div class="pomos">{{ task?.pomos }}/{{ task?.totalPomos }}</div>
     <img src="./assets/ellipsis-vertical.svg" />
@@ -34,6 +38,11 @@ let props = defineProps({
 
 .container:hover {
   scale: 105%;
+}
+
+
+.not-completed {
+  opacity: 40%;
 }
 
 .active-indicator {
