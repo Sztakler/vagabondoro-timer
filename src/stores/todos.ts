@@ -9,7 +9,7 @@ export const useTodosStore = defineStore("todos", {
   new Todo("Water plants", 1),
   new Todo("Excercise a bit", 2),
   new Todo("Do homework", 4),
-  new Todo("Read a book", 3),      
+  new Todo("Read a book", 6),      
     ],
       activeTaskIndex: 0,
     }
@@ -26,6 +26,12 @@ export const useTodosStore = defineStore("todos", {
     getActiveTaskId() {
       console.log(this.todos[this.activeTaskIndex].id)
       return this.todos[this.activeTaskIndex].id;
+    },
+    incrementPomodoroOnActiveTask() {
+      this.todos[this.activeTaskIndex].pomos += 1;
+    },
+    getActiveTaskRemainingPomos() {
+      return this.todos[this.activeTaskIndex].totalPomos - this.todos[this.activeTaskIndex].pomos;
     }
   },
 })

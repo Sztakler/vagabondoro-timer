@@ -8,7 +8,10 @@ import TimeEstimation from './TimeEstimation.vue';
 
 import { TimerModes, TimerSettings, } from './types.js'
 
-let timerSettings = ref(new TimerSettings(0.1, 0.05, 0.08));
+import { useTodosStore } from './stores/todos';
+const todosStore = useTodosStore();
+
+let timerSettings = ref(new TimerSettings(25, 5, 15));
 let currentMode = ref(0);
 let timerSchedule = ref([
   TimerModes.Pomodoro,
@@ -33,9 +36,9 @@ function restartTimer() {
 }
 
 function timerToggledCallback() {
-  if (timer.isRunning.value) {
+  if (timer.isRunning.value === true) {
     timer.pause();
-  } else timer.start();
+  } else timer.resume();
 }
 
 function timerScheduleAdvance() {
@@ -47,17 +50,17 @@ function timerScheduleAdvanceToNext(timerMode: TimerModes) {
     timerScheduleAdvance();
   }
   restartTimer();
+  timer.pause();
 }
 
 onMounted(() => {
   watchEffect(async () => {
     if (timer.isExpired.value) {
+      if (timerSchedule.value[currentMode.value] === TimerModes.Pomodoro) {
+        todosStore.incrementPomodoroOnActiveTask();
+      }
       timerScheduleAdvance();
       restartTimer();
-
-      if (timerSchedule.value[currentMode.value] === TimerModes.Pomodoro) {
-        emit("timer-exceeded")
-      }
     }
   })
 })
@@ -75,8 +78,8 @@ onMounted(() => {
   <div class="timer">
     <h1>{{ timer.minutes.value + ":" + timer.seconds.value
     }}</h1>
-    <StartButton @timer-toggled="timerToggledCallback" />
-    <TimeEstimation />
+    <StartButton :timerIsRunning="timer.isRunning.value" @click="timerToggledCallback" />
+    <TimeEstimation :schedule="timerSchedule" :currentMode="currentMode" :timerSettings="timerSettings" />
   </div>
 </template>
 

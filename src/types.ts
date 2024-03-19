@@ -11,10 +11,10 @@ class Todo {
     completed: Boolean;
     active: Boolean;
     content: String;
-    pomos: Number;
-    totalPomos: Number;
+    pomos: number;
+    totalPomos: number;
 
-    constructor(content: String, totalPomos: Number) {
+    constructor(content: String, totalPomos: number) {
         this.id = uuidv4();
         this.completed = false;
         this.active = false;
@@ -25,17 +25,17 @@ class Todo {
 }
 
 class TimerSettings {
-    pomodoroTime: Number = 25 * 60;
-    breakTime: Number = 5 * 60;
-    longBreakTime: Number = 15 * 60;
-    modesTimes = new Map<TimerModes, Number>(
+    pomodoroTime: number = 25 * 60;
+    breakTime: number = 5 * 60;
+    longBreakTime: number = 15 * 60;
+    modesTimes = new Map<TimerModes, number>(
         [
             [TimerModes.Pomodoro,  25 * 60],
-            [TimerModes.Break, 5],
-            [TimerModes.LongBreak, 15],
+            [TimerModes.Break, 5 * 60],
+            [TimerModes.LongBreak, 15 * 60],
         ]);
 
-    constructor(pomodoroTime: Number, breakTime: Number, longBreakTime: Number) {
+    constructor(pomodoroTime: number, breakTime: number, longBreakTime: number) {
         this.pomodoroTime = pomodoroTime * 60;
         this.breakTime = breakTime * 60;
         this.longBreakTime = longBreakTime * 60;
@@ -44,8 +44,8 @@ class TimerSettings {
         this.modesTimes.set(TimerModes.LongBreak, this.longBreakTime);
     }
 
-    public getModeTime(mode: TimerModes) {
-        return this.modesTimes.get(mode);
+    public getModeTime(mode: TimerModes): number {
+        return this.modesTimes.get(mode)!;
     }
 }
 
