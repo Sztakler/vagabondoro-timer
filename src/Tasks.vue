@@ -71,6 +71,7 @@ button {
 
 .add-task-button {
   padding: 1rem;
+  padding-bottom: 0;
   align-self: center;
   transition: scale 200ms ease;
 }

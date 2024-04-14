@@ -119,13 +119,13 @@ button:hover {
   scale: 105%;
 }
 
-@media screen and (max-height: 600px) {
+@media screen and (max-height: 650px) {
   .timer>h1 {
     padding: 2rem;
   }
 }
 
-@media screen and (max-height: 440px) {
+@media screen and (max-height: 500px) {
   .timer>h1 {
     font-size: 8rem;
     padding: 4rem;
