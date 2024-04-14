@@ -11,7 +11,7 @@ import { TimerModes, TimerSettings, } from './types.js'
 import { useTodosStore } from './stores/todos';
 const todosStore = useTodosStore();
 
-let timerSettings = ref(new TimerSettings(25, 5, 15));
+let timerSettings = ref(new TimerSettings(0.1, 0.05, 0.08));
 let currentMode = ref(0);
 let timerSchedule = ref([
   TimerModes.Pomodoro,
@@ -67,15 +67,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <nav>
-    <Button :active="timerSchedule[currentMode] === TimerModes.Pomodoro"
-      @click="timerScheduleAdvanceToNext(TimerModes.Pomodoro)">Pomodoro</Button>
-    <Button :active="timerSchedule[currentMode] === TimerModes.Break"
-      @click="timerScheduleAdvanceToNext(TimerModes.Break)">Break</Button>
-    <Button :active="timerSchedule[currentMode] === TimerModes.LongBreak"
-      @click="timerScheduleAdvanceToNext(TimerModes.LongBreak)">Long break</Button>
-  </nav>
   <div class="timer">
+    <nav>
+      <Button :active="timerSchedule[currentMode] === TimerModes.Pomodoro"
+        @click="timerScheduleAdvanceToNext(TimerModes.Pomodoro)">Pomodoro</Button>
+      <Button :active="timerSchedule[currentMode] === TimerModes.Break"
+        @click="timerScheduleAdvanceToNext(TimerModes.Break)">Break</Button>
+      <Button :active="timerSchedule[currentMode] === TimerModes.LongBreak"
+        @click="timerScheduleAdvanceToNext(TimerModes.LongBreak)">Long break</Button>
+    </nav>
     <h1>{{ timer.minutes.value + ":" + timer.seconds.value
     }}</h1>
     <StartButton :timerIsRunning="timer.isRunning.value" @click="timerToggledCallback" />
@@ -93,16 +93,19 @@ nav {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .timer>h1 {
   font-size: 6rem;
   font-weight: 600;
+  margin: 0;
+  padding: 4rem;
 }
 
 button {
   all: unset;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 400;
   background-color: #DCD7BACC;
   padding: 5px 10px 5px 10px;
@@ -114,5 +117,18 @@ button {
 
 button:hover {
   scale: 105%;
+}
+
+@media screen and (max-height: 600px) {
+  .timer>h1 {
+    padding: 2rem;
+  }
+}
+
+@media screen and (max-height: 440px) {
+  .timer>h1 {
+    font-size: 8rem;
+    padding: 4rem;
+  }
 }
 </style>

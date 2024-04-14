@@ -9,7 +9,7 @@ const todosStore = useTodosStore();
 let completedHidden = ref(false);
 
 function addTask() {
-  let newTodo = new Todo("...", 0)
+  let newTodo = new Todo("", 0)
   todosStore.addTodo(newTodo);
 }
 
@@ -22,8 +22,8 @@ function hideCompleted() {
   <main>
     <h2>Tasks</h2>
     <button @click="hideCompleted" class="hide-completed-button">
-      <img v-if="completedHidden" src="./assets/eye-off.svg" />
-      <img v-else src="./assets/eye.svg" />
+      <img v-if="completedHidden" class="hide-completed-icon" src="./assets/eye-off.svg" />
+      <img v-else class="hide-completed-icon" src="./assets/eye.svg" />
       Hide completed
     </button>
     <div class="task-list">
@@ -46,6 +46,7 @@ main {
   justify-content: center;
   align-items: center;
   width: 100%;
+  padding: 1rem;
 }
 
 h2 {
@@ -63,6 +64,9 @@ button {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 30vh;
+  padding: 1rem;
+  overflow-y: scroll;
 }
 
 .add-task-button {
@@ -81,5 +85,17 @@ button {
   align-items: center;
   gap: 0.2rem;
   padding: 0.2rem;
+}
+
+.hide-completed-icon {
+  scale: 80%;
+}
+
+@media screen and (max-height: 600px) {
+  .task-list {
+    max-height: 50px;
+  }
+
+  main {}
 }
 </style>

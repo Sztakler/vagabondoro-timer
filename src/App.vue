@@ -1,12 +1,16 @@
 <script setup lang="ts">
+import { useMediaQuery } from '@vueuse/core'
+
 import Timer from './Timer.vue';
 import Tasks from './Tasks.vue';
+
+const isHighScreen = useMediaQuery('(min-height: 440px)');
 </script>
 
 <template>
   <div class="container border-radius-container">
     <Timer />
-    <Tasks />
+    <Tasks v-if="isHighScreen" />
   </div>
 </template>
 
@@ -21,5 +25,19 @@ import Tasks from './Tasks.vue';
   justify-content: center;
   align-items: center;
   gap: 2rem;
+  width: 60vw;
+  max-width: 400px;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    width: 100vw;
+  }
+}
+
+@media screen and (max-height: 520px) {
+  .container {
+    gap: 0;
+  }
 }
 </style>

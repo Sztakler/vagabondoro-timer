@@ -11,7 +11,7 @@ export const useTodosStore = defineStore("todos", {
   new Todo("Do homework", 4),
   new Todo("Read a book", 6),      
     ],
-      activeTaskIndex: 0,
+      activeTaskIndex: -1,
     }
   },
   actions: {
@@ -19,21 +19,30 @@ export const useTodosStore = defineStore("todos", {
       this.todos.push(todo);
     },
     changeActiveTask(id: String) {
-      this.todos[this.activeTaskIndex].active = false;
-      this.activeTaskIndex = this.todos.findIndex(todo => todo.id === id);
-      this.todos[this.activeTaskIndex].active = true;
+      if (this.activeTaskIndex !== -1) 
+        this.todos[this.activeTaskIndex].active = false;
+
+      this.activeTaskIndex = this.todos.findIndex(todo => todo.id === id)
+
+      if (this.activeTaskIndex !== -1) 
+        this.todos[this.activeTaskIndex].active = true;
     },
     getActiveTaskId() {
-      console.log(this.todos[this.activeTaskIndex].id)
+      if (this.activeTaskIndex === -1) return;
       return this.todos[this.activeTaskIndex].id;
     },
     incrementPomodoroOnActiveTask() {
+      if (this.activeTaskIndex === -1) return;
+      console.log(typeof       this.todos[this.activeTaskIndex].pomos + 1)
       this.todos[this.activeTaskIndex].pomos += 1;
     },
     getActiveTaskRemainingPomos() {
+      if (this.activeTaskIndex === -1) return 0;
       return this.todos[this.activeTaskIndex].totalPomos - this.todos[this.activeTaskIndex].pomos;
     },
     deleteTask(id: String) {
+      if (this.activeTaskIndex !== -1)
+        this.activeTaskIndex -= 1;
       this.todos = this.todos.filter(todo => todo.id !== id);
   }
   },
