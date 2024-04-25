@@ -1,16 +1,45 @@
-# Tauri + Vue 3 + TypeScript
+# vagabondoro-timer
+Simple pomodoro timer made with Tauri + Vue 3 + TypeScript.
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+![image](https://github.com/Sztakler/vagabondoro-timer/assets/58264262/b969f982-c58c-446e-b3c9-a498fd647f21)
 
-## Recommended IDE Setup
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+# Instruction
 
-## Type Support For `.vue` Imports in TS
+To run: `bun run tauri dev` in main catalogue.
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+# What it is?
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+I needed a simple, distraction free tool to track time I spend working and to manage my daily tasks, so I decided to use this opportunity to train my skills in Typescript and Vue.
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+Application design is minimal, featuring a panel from manga *Vagabond*. Color scheme is based on [Kanagawa theme](https://github.com/rebelot/kanagawa.nvim) for Neovim editor.
+
+# What it does?
+
+Currently app allows user to edit tasklist and select tasks they want to work at the time. Timer tracks time spent on selected task and increments number of completed *pomos* (pomodoro sessions).
+
+Timer automatically switches between *pomos* and breaks, entering *long break* after four consecutive sessions. It also displays approximated time of finishing task.
+
+User can add, edit and remove tasks as well as marking them as completed or uncompleted. Completed tasks may be hidden from view to prevent distractions.
+
+Application is responsive, designed in a mobile first fashion.
+
+
+
+# Purpose and Features
+In search of a solution to manage my work time and daily tasks, I decided to use this opportunity to hone my skills in Typescript and Vue. My work resulted in sleek application designed to minimize distractions and maximize productivity.
+
+Inspired by the simplicity of a panel from the manga _Vagabond_, the application boasts a minimalist design. Its color scheme draws from the serene aesthetics of the [Kanagawa theme](https://github.com/rebelot/kanagawa.nvim) for the Neovim editor, fostering a tranquil work environment.
+
+# Functionality
+At its core, the app empowers users to effortlessly edit their task list and prioritize their workload. Users can seamlessly select tasks to tackle, while a dedicated timer tracks the time spent on each task, incrementing the count of completed "pomos" (pomodoro sessions) along the way.
+
+The timer seamlessly transition between focused work sessions and breaks. After four consecutive pomos, it ushers in a long break. Additionally, the app provides an estimated time of task completion, keeping users informed and motivated.
+
+Users wield full control over their task list, with the ability to add, edit, or remove tasks at will. Tasks can also be marked as completed or reverted to their original state. To minimize distractions, completed tasks can be hidden from view, ensuring focus.
+
+Designed with responsiveness in mind, the application prioritizes mobile usability, catering to the needs of users across various devices.
+
+
+
+
