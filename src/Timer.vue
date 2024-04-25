@@ -11,7 +11,7 @@ import { TimerModes, TimerSettings, } from './types.js'
 import { useTodosStore } from './stores/todos';
 const todosStore = useTodosStore();
 
-let timerSettings = ref(new TimerSettings(0.1, 0.05, 0.08));
+let timerSettings = ref(new TimerSettings(20, 5, 10));
 let currentMode = ref(0);
 let timerSchedule = ref([
   TimerModes.Pomodoro,
