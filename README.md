@@ -6,25 +6,7 @@ Simple pomodoro timer made with Tauri + Vue 3 + TypeScript.
 
 # Instruction
 
-To run: `bun run tauri dev` in main catalogue.
-
-# What it is?
-
-I needed a simple, distraction free tool to track time I spend working and to manage my daily tasks, so I decided to use this opportunity to train my skills in Typescript and Vue.
-
-Application design is minimal, featuring a panel from manga *Vagabond*. Color scheme is based on [Kanagawa theme](https://github.com/rebelot/kanagawa.nvim) for Neovim editor.
-
-# What it does?
-
-Currently app allows user to edit tasklist and select tasks they want to work at the time. Timer tracks time spent on selected task and increments number of completed *pomos* (pomodoro sessions).
-
-Timer automatically switches between *pomos* and _breaks_, entering *long break* after four consecutive sessions. It also displays approximated time of finishing task.
-
-User can add, edit and remove tasks as well as marking them as completed or uncompleted. Completed tasks may be hidden from view to prevent distractions.
-
-Application is responsive, designed in a mobile first fashion.
-
-
+To start application simply run `bun run tauri dev` in main catalogue.
 
 # Purpose and Features
 In search of a solution to manage my work time and daily tasks, I decided to use this opportunity to hone my skills in Typescript and Vue. My work resulted in sleek application designed to minimize distractions and maximize productivity.
