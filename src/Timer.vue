@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watchEffect, onMounted } from 'vue';
 import { useTimer } from 'vue-timer-hook';
+import JSConfetti from "js-confetti";
 
 import Button from './Button.vue';
 import StartButton from './StartButton.vue';
@@ -11,7 +12,7 @@ import { TimerModes, TimerSettings, } from './types.js'
 import { useTodosStore } from './stores/todos';
 const todosStore = useTodosStore();
 
-let timerSettings = ref(new TimerSettings(20, 5, 10));
+let timerSettings = ref(new TimerSettings(0.1, 0.1, 10));
 let currentMode = ref(0);
 let timerSchedule = ref([
   TimerModes.Pomodoro,
@@ -24,6 +25,8 @@ let timerSchedule = ref([
   TimerModes.LongBreak,
 ]);
 
+const jsConfetti = new JSConfetti();
+const audio = new Audio("src/assets/notification.mp3")
 const time = new Date();
 time.setSeconds(time.getSeconds() + timerSettings.value.getModeTime(timerSchedule.value[currentMode.value]));
 const timer = useTimer(time);
@@ -53,12 +56,18 @@ function timerScheduleAdvanceToNext(timerMode: TimerModes) {
   timer.pause();
 }
 
+function playSound() {
+  audio.play()
+}
+
 onMounted(() => {
   watchEffect(async () => {
     if (timer.isExpired.value) {
       if (timerSchedule.value[currentMode.value] === TimerModes.Pomodoro) {
         todosStore.incrementPomodoroOnActiveTask();
       }
+      jsConfetti.addConfetti();
+      playSound();
       timerScheduleAdvance();
       restartTimer();
     }
