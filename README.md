@@ -22,6 +22,7 @@ Users wield full control over their task list, with the ability to add, edit, or
 
 Designed with responsiveness in mind, the application prioritizes mobile usability, catering to the needs of users across various devices.
 
-[Usage demonstration](https://github.com/Sztakler/vagabondoro-timer/assets/58264262/a517a769-bd31-4805-8321-cd5d19877faa)
+[Usage demonstration.webm](https://github.com/Sztakler/vagabondoro-timer/assets/58264262/c53835fb-d446-4516-93c0-6203b5545727)
+
 
 
