@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 
 let props = defineProps({
   timerIsRunning: Boolean,

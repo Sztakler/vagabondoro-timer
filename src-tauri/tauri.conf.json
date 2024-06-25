@@ -6,7 +6,7 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "pomodoro-vagabond",
+    "productName": "Vagabondoro Timer",
     "version": "0.0.0"
   },
   "tauri": {
@@ -19,7 +19,7 @@
     },
     "windows": [
       {
-        "title": "pomodoro-vagabond",
+        "title": "Vagabondoro Timer",
         "width": 800,
         "height": 600
       }
@@ -30,7 +30,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "com.tauri.dev",
+      "identifier": "vagabondoro-timer",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",

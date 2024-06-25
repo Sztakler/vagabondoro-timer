@@ -1,16 +1,10 @@
 <script setup lang="ts">
 import { Todo } from './types';
 
-import { useTodosStore } from './stores/todos';
-const todosStore = useTodosStore();
-
-let emit = defineEmits(['task-delete'])
-
 let props = defineProps({
   task: Todo,
   active: Boolean,
 })
-
 
 </script>
 
@@ -20,15 +14,15 @@ let props = defineProps({
       <div v-if="props.active" class="active-indicator"></div>
       <button><img src="./assets/check.svg" :class="{ 'not-completed': !task!.completed }"
           @click.stop="task!.completed = !task!.completed" /></button>
-      <input class="content" v-model.lazy="task.content" placeholder="Enter your task" />
+      <input class="content" v-model.lazy="task!.content" placeholder="Enter your task" />
     </div>
     <div class="right">
       <div class="pomo-inputs">
-        <input class="pomos" pattern="\d+" v-model.lazy.number="task.pomos" @click.stop="" />
+        <input class="pomos" pattern="\d+" v-model.lazy.number="task!.pomos" @click.stop="" />
         /
-        <input class="pomos" pattern="\d+" v-model.lazy.number="task.totalPomos" @click.stop="" />
+        <input class="pomos" pattern="\d+" v-model.lazy.number="task!.totalPomos" @click.stop="" />
       </div>
-      <button><img src="./assets/trash.svg" class="delete-button" @click.stop="$emit('task-delete', task.id)" /></button>
+      <button><img src="./assets/trash.svg" class="delete-button" @click.stop="$emit('task-delete', task!.id)" /></button>
     </div>
   </div>
 </template>

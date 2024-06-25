@@ -12,7 +12,10 @@ import { TimerModes, TimerSettings, } from './types.js'
 import { useTodosStore } from './stores/todos';
 const todosStore = useTodosStore();
 
-let timerSettings = ref(new TimerSettings(0.1, 0.1, 10));
+const audio = new Audio('src/assets/notification.mp3');
+audio.load();
+
+let timerSettings = ref(new TimerSettings(0.1, 0.1, 0.1));
 let currentMode = ref(0);
 let timerSchedule = ref([
   TimerModes.Pomodoro,
@@ -26,16 +29,16 @@ let timerSchedule = ref([
 ]);
 
 const jsConfetti = new JSConfetti();
-const audio = new Audio("src/assets/notification.mp3")
 const time = new Date();
 time.setSeconds(time.getSeconds() + timerSettings.value.getModeTime(timerSchedule.value[currentMode.value]));
-const timer = useTimer(time);
+const timer = useTimer(time.getTime());
 timer.pause();
 
 function restartTimer() {
   const time = new Date();
   time.setSeconds(time.getSeconds() + timerSettings.value.getModeTime(timerSchedule.value[currentMode.value]));
-  timer.restart(time);
+  timer.restart(time.getTime());
+  audio.play();
 }
 
 function timerToggledCallback() {
@@ -66,13 +69,22 @@ onMounted(() => {
       if (timerSchedule.value[currentMode.value] === TimerModes.Pomodoro) {
         todosStore.incrementPomodoroOnActiveTask();
       }
+      // playSound();
       jsConfetti.addConfetti();
-      playSound();
       timerScheduleAdvance();
       restartTimer();
     }
   })
 })
+
+function getFormattedTimerValue(timer_value: Number): String {
+  let timer_string_value: String = String(timer_value);
+  if (timer_string_value.length == 1) {
+    timer_string_value = '0' + timer_string_value;
+  }
+
+  return timer_string_value;
+}
 </script>
 
 <template>
@@ -85,7 +97,7 @@ onMounted(() => {
       <Button :active="timerSchedule[currentMode] === TimerModes.LongBreak"
         @click="timerScheduleAdvanceToNext(TimerModes.LongBreak)">Long break</Button>
     </nav>
-    <h1>{{ timer.minutes.value + ":" + timer.seconds.value
+    <h1>{{ getFormattedTimerValue(timer.minutes.value) + ":" + getFormattedTimerValue(timer.seconds.value)
     }}</h1>
     <StartButton :timerIsRunning="timer.isRunning.value" @click="timerToggledCallback" />
     <TimeEstimation :schedule="timerSchedule" :currentMode="currentMode" :timerSettings="timerSettings" />
