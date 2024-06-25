@@ -15,7 +15,7 @@ const todosStore = useTodosStore();
 const audio = new Audio('src/assets/notification.mp3');
 audio.load();
 
-let timerSettings = ref(new TimerSettings(0.1, 0.1, 0.1));
+let timerSettings = ref(new TimerSettings(20, 5, 10));
 let currentMode = ref(0);
 let timerSchedule = ref([
   TimerModes.Pomodoro,
